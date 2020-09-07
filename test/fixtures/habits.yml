@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  start_date: 2020-09-07
+  category: MyText
+  time_period: MyString
+  daily_count: 
+  weekly_count: 
+  monthly_count: 
+
+two:
+  name: MyText
+  start_date: 2020-09-07
+  category: MyText
+  time_period: MyString
+  daily_count: 
+  weekly_count: 
+  monthly_count: 
