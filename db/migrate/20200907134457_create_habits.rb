@@ -4,8 +4,8 @@ class CreateHabits < ActiveRecord::Migration[6.0]
       t.references :user, foreign_key: true
       t.text :name
       t.date :start_date
-      t.text :category
-      t.string :time_period
+      t.string :note
+      t.integer :time_period
       t.numeric :daily_count
       t.numeric :weekly_count
       t.numeric :monthly_count

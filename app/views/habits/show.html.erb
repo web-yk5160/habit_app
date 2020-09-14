@@ -1,0 +1,8 @@
+<div class="container">
+  <p>習慣名: <%= @habit.name %></p>
+  <p>開始日: <%= @habit.start_date %></p>
+  <p>メモ: <%= @habit.note %></p>
+
+  <p><%= link_to("習慣編集", edit_habit_path(@habit)) %></p>
+  <p><%= link_to("習慣一覧へ", habits_path) %></p>
+</div>

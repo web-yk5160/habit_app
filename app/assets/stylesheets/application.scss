@@ -1,23 +1,113 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
  *= require_tree .
  *= require_self
  */
 
 @import "bootstrap/scss/bootstrap";
 
+// navbar
+.base-color {
+  background-color: #5d98ff;
+}
+
+@media screen and (min-width: 992px) {
+  .navbar {
+    font-size: 0.8rem;
+    margin: 0 auto;
+    width: var(--breakpoint-lg);
+  }
+}
+
+// main aws_texts index.html.erb
+body {
+  padding-top: 56px;
+}
+
 .base-container {
-  max-width: 992px;
-  margin: 0 auto;
-  padding: 1rem;
+  @extend .container-fluid;
+  max-width: var(--breakpoint-lg);
+  padding: 30px 15px;
+}
+
+th,
+td {
+  vertical-align: middle !important;
+}
+
+@media screen and (min-width: 992px) {
+  .base-container {
+    width: 992px;
+    padding: 120px 0 80px 0;
+    margin: 0 auto;
+  }
+
+  .base-container h2 {
+    padding: 20px 0px 10px 0px;
+    font-size: 30px;
+  }
+
+  #contents p {
+    width: 710px;
+    margin: 0 auto;
+    padding-bottom: 15px;
+    font-size: 17px;
+  }
+
+  .table-container {
+    width: 710px;
+    margin: 0 auto;
+  }
+  .base-container table {
+    table-layout: fixed;
+    font-size: 17px;
+  }
+
+  .base-container table .w-1 {
+    width: 10%;
+  }
+  .base-container table .w-5 {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 0px) {
+  .base-container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 50px 0 160px 0;
+  }
+}
+//pagination movies/index.html.erb
+.pagination {
+  justify-content: center;
+}
+
+
+// card-height movies/index.html.erb
+.card-body {
+  height: 200px;
+}
+
+// footer
+footer {
+  font-size: 20px;
+  padding: 15px 0 15px 0;
+  text-align: center;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.alert-notice {
+  @extend .alert-success;
+}
+
+.alert-alert {
+  @extend .alert-danger;
+}
+
+input,
+textarea {
+  @extend .is-invalid;
 }
