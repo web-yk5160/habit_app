@@ -1,0 +1,29 @@
+<% if user_signed_in? %>
+<div class="container">
+  <h1>習慣一覧</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>習慣名</th>
+        <th>開始日</th>
+        <th>メモ</th>
+        <th>削除</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @habits.each do |habit| %>
+      <tr>
+      <td><%= link_to(habit.name, habit_path(habit)) %></td>
+      <td><%= habit.start_date %></td>
+      <td><%= habit.note %></td>
+      <td><%= link_to("削除", habit, method: :delete, data: { confirm: '削除して良いですか?'}, class: "btn btn-danger") %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br>
+  <p><%= link_to("テンプレートから作成", categories_path) %></p>
+<% else %>
+  <p>ログインしてください</p>
+<% end %>
+</div>
