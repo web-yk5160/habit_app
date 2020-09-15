@@ -1,7 +1,8 @@
+<%= render 'layouts/flash' %>
 <br>
 <%= form_with model: @habit, local: true do |f| %>
   <p><%= f.label("name") %></p>
-  <p><%= f.text_field("name") %></p>
+  <p><%= f.text_field :name, :value => params['name'] %></p>
   <p><%= f.label("start_date") %></p>
   <p><%= f.date_select :start_date, include_blank: true, selected: Date.today  %></p>
   <p><%= f.label("note") %></p>

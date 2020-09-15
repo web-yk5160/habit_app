@@ -14,10 +14,10 @@ class HabitsController < ApplicationController
   end
 
   def create
-    habit = Habit.new(habit_params)
-
+    habit = Habit.create(habit_params)
     if habit.save
-      redirect_to habits_path, notice: '習慣を作成しました。'
+      redirect_to habits_path
+      flash[:success] = '習慣を作成しました。'
     else
       if params[:name].blank?
         flash[:danger] = '習慣名を入力してください。'
@@ -46,9 +46,28 @@ class HabitsController < ApplicationController
     redirect_to action: :index unless user_signed_in?
   end
 
+  def template
+  end
+
+  def new_template
+    if Habit.create(template_params)
+      redirect_to habits_path
+      flash[:success] = '習慣を作成しました。'
+    else
+      if params[:name].blank?
+        flash[:danger] = '習慣名を入力してください。'
+        render :new
+      end
+    end
+  end
+
   private
 
   def habit_params
     params.require(:habit).permit(:name, :start_date, :note, :time_period).merge(user_id: current_user.id)
+  end
+
+  def template_params
+    params.permit(:name, :start_date, :note, :time_period).merge(user_id: current_user.id)
   end
 end

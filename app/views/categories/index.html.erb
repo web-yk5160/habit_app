@@ -1,0 +1,10 @@
+<div class="card" style="width: 50rem;margin: 0 auto;">
+  <div class="card-header text-center">
+    カテゴリ一覧
+  </div>
+  <% @categories.each do |category| %>
+    <ul class="list-group list-group-flush">
+      <%= link_to(category.name, category_path(category), class: "list-group-item text-center") %>
+    </ul>
+  <% end %>
+</div>

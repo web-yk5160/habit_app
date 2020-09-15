@@ -1,15 +1,12 @@
-<div class="container">
-  <br>
-  <%= form_for(@habit) do |f| %>
-    <p><%= f.label("name") %></p>
-    <p><%= f.text_field("name") %></p>
-    <p><%= f.label("start_date") %></p>
-    <p><%= f.date_field("start_date") %></p>
-    <p><%= f.label("note") %></p>
-    <p><%= f.text_field("note") %></p>
-    <p><%= f.submit %></p>
-  <% end %>
-  <br>
-  <p><%= link_to("戻る", habit_path(@habit)) %></p>
-  <p><%= link_to("習慣一覧へ", habits_path) %></p>
-</div>
+<%= form_with model: @habit  do |f| %>
+  <p><%= f.label("name") %></p>
+  <p><%= f.text_field("name") %></p>
+  <p><%= f.label("start_date") %></p>
+  <p><%= f.date_field("start_date") %></p>
+  <p><%= f.label("note") %></p>
+  <p><%= f.text_field("note") %></p>
+  <p><%= f.submit %></p>
+<% end %>
+<br>
+<p><%= link_to("戻る", habit_path(@habit)) %></p>
+<p><%= link_to("習慣一覧へ", habits_path) %></p>

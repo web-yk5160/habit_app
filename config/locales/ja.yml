@@ -1,8 +1,6 @@
 ---
 ja:
   activerecord:
-    habit:
-      name: 名前
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"
