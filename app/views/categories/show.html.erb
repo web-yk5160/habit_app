@@ -4,7 +4,7 @@
   </div>
   <% @templates.each do |template| %>
     <ul class="list-group list-group-flush">
-      <%= link_to(template.name, template_path(template, :name => template.name), class: "list-group-item text-center") %>
+      <%= link_to(template.name, template_path(template), class: "list-group-item text-center" )%>
     </ul>
   <% end %>
 </div>

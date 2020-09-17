@@ -47,6 +47,10 @@ class HabitsController < ApplicationController
   end
 
   def template
+    @templates = Template.where(id: params[:id])
+    @templates.each do |template|
+      @template_name = template.name
+    end
   end
 
   def new_template
