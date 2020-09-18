@@ -3,6 +3,22 @@ class HabitsController < ApplicationController
 
   def index
     @habits = Habit.where(user_id:current_user.id)
+    @habits.each do |habit|
+      @habit = habit
+    end
+
+    # start_dateカラムのみを抽出
+    search_year = Habit.pluck(:start_date)
+    year_array = []
+    search_year.each do |search|
+      search_day = search
+      search_year = search_day
+      year_array << search_year
+    end
+    # 重複を削除してソート
+    @year_array = year_array.uniq.sort
+    last_year = @year_array[0]
+    @first_view = Habit.where(user_id: current_user.id).where(start_date: last_year)
   end
 
   def show
@@ -63,6 +79,10 @@ class HabitsController < ApplicationController
         render :new
       end
     end
+  end
+
+  def select_year
+    @select_year = Habit.where(user_id: current_user.id).where(start_date: "#{params[:keyword]}")
   end
 
   private
