@@ -1,5 +1,6 @@
 class HabitsController < ApplicationController
   before_action :move_to_index, except: :index
+  before_action :set_habit, only: [:show, :edit, :update, :destroy]
 
   def index
     @habits = Habit.where(user_id:current_user.id)
@@ -22,7 +23,6 @@ class HabitsController < ApplicationController
   end
 
   def show
-    @habit = Habit.find(params['id'])
   end
 
   def new
@@ -43,18 +43,15 @@ class HabitsController < ApplicationController
   end
 
   def edit
-    @habit = Habit.find(params['id'])
   end
 
   def update
-    habit = Habit.find(params['id'])
-    habit.update(habit_params)
-    redirect_to(habit)
+    @habit.update(habit_params)
+    redirect_to(habits_path)
   end
 
   def destroy
-    habit = Habit.find(params['id'])
-    habit.destroy
+    @habit.destroy
     redirect_to(habits_path)
   end
 
@@ -85,13 +82,25 @@ class HabitsController < ApplicationController
     @select_year = Habit.where(user_id: current_user.id).where(start_date: "#{params[:keyword]}")
   end
 
+  def done
+    @done = Habit.where(user_id: current_user.id).where(id: "#{params[:keyword]}").update(status: 1, done: "#{params[:name]}")
+  end
+
+  def redo
+    @redo = Habit.where(user_id: current_user.id).where(id: "#{params[:keyword]}").update(status: 0)
+  end
+
   private
 
   def habit_params
-    params.require(:habit).permit(:name, :start_date, :note, :time_period).merge(user_id: current_user.id)
+    params.require(:habit).permit(:name, :start_date, :note, :time_period, :goal, :status, :done).merge(user_id: current_user.id)
   end
 
   def template_params
-    params.permit(:name, :start_date, :note, :time_period).merge(user_id: current_user.id)
+    params.permit(:name, :start_date, :note, :time_period, :goal).merge(user_id: current_user.id)
+  end
+
+  def set_habit
+    @habit = Habit.find(params['id'])
   end
 end

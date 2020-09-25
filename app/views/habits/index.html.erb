@@ -4,7 +4,9 @@
   <table class="table table-hover">
     <thead>
       <tr>
+        <th></th>
         <th>習慣名</th>
+        <th>ゴール</th>
         <th>開始日</th>
         <th>メモ</th>
         <th>削除</th>
@@ -15,9 +17,12 @@
         <%= Time.current.strftime('%Y/%m/%d') %>
       </div>
       <% @habits.each do |habit| %>
-        <% if habit.start_date.strftime('%Y/%m/%d') == Time.current.strftime('%Y/%m/%d') %>
+        <% if habit.start_date.strftime('%Y/%m/%d') == Time.current.strftime('%Y/%m/%d') && habit.status == false %>
           <tr>
+          <%= %>
+          <td><%= check_box_tag habit.id, habit.id, false, id: 'check', name: '0', class: 'submit-on-change' %></td>
           <td><%= link_to(habit.name, habit_path(habit)) %></td>
+          <td><%= habit.done %> /<%= habit.goal %></td>
           <td><%= habit.start_date %></td>
           <td><%= habit.note %></td>
           <td><%= link_to("削除", habit, method: :delete, data: { confirm: '削除して良いですか?'}, class: "btn btn-danger") %></td>
@@ -33,3 +38,29 @@
 <% end %>
 
 <%= javascript_pack_tag 'habits/habit' %>
+<%= javascript_pack_tag 'habits/done' %>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>完了済み</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="habits_done">
+  <% @habits.each do |habit| %>
+    <% if habit.start_date.strftime('%Y/%m/%d') == Time.current.strftime('%Y/%m/%d') && habit.status == true %>
+    <tr>
+          <td><%= check_box_tag habit.id, habit.id, false, id: 'btn_count_up', class: 'submit-on-change' %></td>
+          <td><%= link_to(habit.name, habit_path(habit)) %></td>
+          <td><div id="disp_count">0</div> / <%= habit.goal %></td>
+          <td><%= habit.start_date %></td>
+          <td><%= habit.note %></td>
+          <td><%= link_to("削除", habit, method: :delete, data: { confirm: '削除して良いですか?'}, class: "btn btn-danger") %></td>
+          </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>

@@ -3,6 +3,8 @@
 <%= form_with model: @habit, local: true do |f| %>
   <p><%= f.label("name") %></p>
   <p><%= f.text_field :name, :value => @template_name %></p>
+  <p><%= f.label("goal") %></p>
+  <p><%= f.number_field :goal, :value => 1 %></p>
   <p><%= f.label("start_date") %></p>
   <p><%= f.date_select :start_date, include_blank: true, selected: Date.today  %></p>
   <p><%= f.label("note") %></p>

@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :habits do
     collection do
       get 'select_year', defaults: { format: 'json' }
+      get 'done', defaults: { format: 'json' }
+      get 'redo', defaults: { format: 'json' }
     end
   end
   resources :categories, only: [:index, :show]

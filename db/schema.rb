@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_14_083032) do
+ActiveRecord::Schema.define(version: 2020_09_21_071506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,12 @@ ActiveRecord::Schema.define(version: 2020_09_14_083032) do
     t.decimal "monthly_count"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "done"
+    t.datetime "last_done_date"
+    t.integer "goal"
+    t.integer "complete_days"
+    t.integer "set_continue_days"
+    t.boolean "status", default: false, null: false
     t.index ["user_id"], name: "index_habits_on_user_id"
   end
 

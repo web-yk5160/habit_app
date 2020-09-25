@@ -3,4 +3,5 @@ json.array! @select_year do |year|
   json.name year.name
   json.note year.note
   json.start_date year.start_date
+  json.status year.status
 end
