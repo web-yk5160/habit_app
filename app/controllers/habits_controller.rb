@@ -20,6 +20,7 @@ class HabitsController < ApplicationController
     @year_array = year_array.uniq.sort
     last_year = @year_array[0]
     @first_view = Habit.where(user_id: current_user.id).where(start_date: last_year)
+    gon.habits = @habits
   end
 
   def show
@@ -83,11 +84,13 @@ class HabitsController < ApplicationController
   end
 
   def done
-    @done = Habit.where(user_id: current_user.id).where(id: "#{params[:keyword]}").update(status: 1, done: "#{params[:name]}")
+    @done = Habit.where(user_id: current_user.id).where(id: "#{params[:keyword]}")
+    @done[0].increment!(:done).update(status: 1)
   end
 
   def redo
-    @redo = Habit.where(user_id: current_user.id).where(id: "#{params[:keyword]}").update(status: 0)
+    @redo = Habit.where(user_id: current_user.id).where(id: "#{params[:keyword]}")
+    @redo[0].decrement!(:done).update(status: 0)
   end
 
   private
@@ -97,7 +100,7 @@ class HabitsController < ApplicationController
   end
 
   def template_params
-    params.permit(:name, :start_date, :note, :time_period, :goal).merge(user_id: current_user.id)
+    params.permit(:name, :start_date, :note, :time_period, :goal, :done).merge(user_id: current_user.id)
   end
 
   def set_habit

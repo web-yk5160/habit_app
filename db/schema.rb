@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2020_09_21_071506) do
     t.decimal "monthly_count"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "done"
+    t.integer "done", default: 0
     t.datetime "last_done_date"
     t.integer "goal"
     t.integer "complete_days"

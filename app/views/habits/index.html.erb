@@ -19,10 +19,9 @@
       <% @habits.each do |habit| %>
         <% if habit.start_date.strftime('%Y/%m/%d') == Time.current.strftime('%Y/%m/%d') && habit.status == false %>
           <tr>
-          <%= %>
-          <td><%= check_box_tag habit.id, habit.id, false, id: 'check', name: '0', class: 'submit-on-change' %></td>
+          <td><button type="button" class="btn btn-success" id="check" value="<%= habit.id %>">完了</button></td>
           <td><%= link_to(habit.name, habit_path(habit)) %></td>
-          <td><%= habit.done %> /<%= habit.goal %></td>
+          <td><%= habit.done %> / <%= habit.goal %></td>
           <td><%= habit.start_date %></td>
           <td><%= habit.note %></td>
           <td><%= link_to("削除", habit, method: :delete, data: { confirm: '削除して良いですか?'}, class: "btn btn-danger") %></td>
@@ -53,9 +52,9 @@
   <% @habits.each do |habit| %>
     <% if habit.start_date.strftime('%Y/%m/%d') == Time.current.strftime('%Y/%m/%d') && habit.status == true %>
     <tr>
-          <td><%= check_box_tag habit.id, habit.id, false, id: 'btn_count_up', class: 'submit-on-change' %></td>
+          <td><button type="button" class="btn btn-success" id="checked" value="<%= habit.id %>">完了</button></td>
           <td><%= link_to(habit.name, habit_path(habit)) %></td>
-          <td><div id="disp_count">0</div> / <%= habit.goal %></td>
+          <td><%= habit.done %> / <%= habit.goal %></td>
           <td><%= habit.start_date %></td>
           <td><%= habit.note %></td>
           <td><%= link_to("削除", habit, method: :delete, data: { confirm: '削除して良いですか?'}, class: "btn btn-danger") %></td>
