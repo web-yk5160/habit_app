@@ -24,7 +24,7 @@ require "csv"
 
 CSV.foreach('db/csv_data/seed_habits.csv', headers: true) do |row|
   Template.create(
-    template_name: row['name'],
+    name: row['name'],
     category_id: row['category_id'],
   )
 end
