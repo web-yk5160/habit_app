@@ -18,3 +18,5 @@ require("channels");
 
 require("bootstrap/dist/js/bootstrap")
 require('jquery')
+require('chart.js')
+require('./graph')

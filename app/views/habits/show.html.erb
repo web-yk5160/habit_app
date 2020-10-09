@@ -1,6 +1,9 @@
+<%= Gon::Base.render_data %>
 <p>習慣名: <%= @habit.name %></p>
 <p>開始日: <%= @habit.start_date %></p>
 <p>メモ: <%= @habit.note %></p>
+
+<canvas id="myChart" width="400" height="400"></canvas>
 
 <p><%= link_to("習慣編集", edit_habit_path(@habit)) %></p>
 <p><%= link_to("習慣一覧へ", habits_path) %></p>

@@ -3,7 +3,7 @@ class HabitsController < ApplicationController
   before_action :set_habit, only: [:show, :edit, :update, :destroy]
 
   def index
-    @habits = Habit.where(user_id:current_user.id)
+    @habits = Habit.where(user_id: current_user.id)
     @habits.each do |habit|
       @habit = habit
     end
@@ -24,6 +24,12 @@ class HabitsController < ApplicationController
   end
 
   def show
+    now = Date.today
+    # 前月
+    now.prev_month
+    gon.chart_label = (now.prev_month..now).map { |date| date.strftime("%-m/%-d") }
+    # gon.chart_label = Habit.order(start_date: "ASC").pluck(:start_date).map { |date| date.strftime("%-m/%-d") }
+    gon.chart_data = @habit.done
   end
 
   def new
@@ -80,12 +86,12 @@ class HabitsController < ApplicationController
   end
 
   def select_year
-    @select_year = Habit.where(user_id: current_user.id).where(start_date: "#{params[:keyword]}")
+    @select_year = Habit.where(user_id: current_user.id)
   end
 
   def done
     @done = Habit.where(user_id: current_user.id).where(id: "#{params[:keyword]}")
-    @done[0].increment!(:done).update(status: 1)
+    @done[0].increment!(:done).update(status: 1, last_done_date: Time.now)
   end
 
   def redo
