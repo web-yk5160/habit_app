@@ -5,11 +5,16 @@
   <p><%= f.number_field :goal, :value => 1 %></p>
   <p><%= f.label("start_date") %></p>
   <p><%= f.date_select :start_date, include_blank: true, selected: Date.today  %></p>
+  <%= f.fields_for :habit_tracks do |i| %>
+    <p><%= f.label("due_date") %></p>
+      <p><%= i.date_select :due_date %></p>
+    <% end %>
   <p><%= f.label("note") %></p>
   <p><%= f.text_field("note") %></p>
   <p><%= f.label("time_period") %></p>
   <p><%= f.select :time_period, {'毎日': 1, '週毎': 2, '月毎': 3}, { class: 'form-control' , required: true } %></p>
   <p><%= f.submit %></p>
+
 <% end %>
 <br>
 <p><%= link_to("習慣一覧に戻る", habits_path) %></p>

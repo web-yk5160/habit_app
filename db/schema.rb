@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_21_071506) do
+ActiveRecord::Schema.define(version: 2020_10_09_103557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,20 @@ ActiveRecord::Schema.define(version: 2020_09_21_071506) do
     t.text "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "habit_tracks", force: :cascade do |t|
+    t.bigint "habit_id"
+    t.date "start_date"
+    t.datetime "last_done_date"
+    t.integer "status"
+    t.integer "done"
+    t.integer "goal"
+    t.datetime "due_date"
+    t.datetime "habit_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["habit_id"], name: "index_habit_tracks_on_habit_id"
   end
 
   create_table "habits", force: :cascade do |t|
@@ -61,6 +75,7 @@ ActiveRecord::Schema.define(version: 2020_09_21_071506) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "habit_tracks", "habits"
   add_foreign_key "habits", "users"
   add_foreign_key "templates", "categories"
 end

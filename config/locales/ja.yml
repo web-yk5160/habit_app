@@ -6,6 +6,7 @@ ja:
         name: 習慣名
         goal: ゴール(1日に達成したい回数)
         start_date: 開始日
+        due_date: 期限日
         note: メモ
         time_period: 期間
     errors:

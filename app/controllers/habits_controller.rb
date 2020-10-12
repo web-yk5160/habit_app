@@ -8,18 +8,30 @@ class HabitsController < ApplicationController
       @habit = habit
     end
 
-    # start_dateカラムのみを抽出
-    search_year = Habit.pluck(:start_date)
-    year_array = []
-    search_year.each do |search|
-      search_day = search
-      search_year = search_day
-      year_array << search_year
+    #今日までの日付を毎日取得する
+    now = Time.current
+    @prev_month = now.prev_month
+    search_year = []
+    (@prev_month.to_datetime..now.to_datetime).each do |day|
+      search_year << day.strftime("%Y-%m-%d")
     end
     # 重複を削除してソート
-    @year_array = year_array.uniq.sort
-    last_year = @year_array[0]
-    @first_view = Habit.where(user_id: current_user.id).where(start_date: last_year)
+    @year_array = search_year
+
+
+
+    # start_dateカラムのみを抽出
+    # search_year = Habit.pluck(:start_date)
+    # year_array = []
+    # search_year.each do |search|
+    #   search_day = search
+    #   search_year = search_day
+    #   year_array << search_year
+    # end
+    # # 重複を削除してソート
+    # @year_array = year_array.uniq.sort
+    # last_year = @year_array[0]
+    # @first_view = Habit.where(user_id: current_user.id).where(start_date: last_year)
     gon.habits = @habits
   end
 
@@ -28,10 +40,12 @@ class HabitsController < ApplicationController
 
   def new
     @habit = Habit.new
+    @habit.habit_tracks.build
   end
 
   def create
     habit = Habit.create(habit_params)
+    binding.pry
     if habit.save
       redirect_to habits_path
       flash[:success] = '習慣を作成しました。'
@@ -80,7 +94,13 @@ class HabitsController < ApplicationController
   end
 
   def select_year
-    @select_year = Habit.where(user_id: current_user.id).where(start_date: "#{params[:keyword]}")
+    #start_date以降の日付に当てはまる習慣取得
+    # @select_year = Habit.where(user_id: current_user.id).where(start_date: "#{params[:keyword]}")
+    # start_dateからdue_dateまでの期間を表示できるようにする
+    @select_year = Habit.where(user_id: current_user.id).where('start_date >= ?', "#{params[:keyword]}").order(start_date: "ASC")
+    # from = Time.current.at_beginning_of_day
+    # to = (from - 1.month)
+    # @select_year = Habit.where(user_id: current_user.id, created_at: to...from).where('start_date >= ?', "#{params[:keyword]}").order(start_date: "ASC")
   end
 
   def done
@@ -96,7 +116,7 @@ class HabitsController < ApplicationController
   private
 
   def habit_params
-    params.require(:habit).permit(:name, :start_date, :note, :time_period, :goal, :status, :done).merge(user_id: current_user.id)
+    params.require(:habit).permit(:name, :start_date, :note, :time_period, :goal, :status, :done, habit_tracks_attributes: [:id, :habit_id, :due_date]).merge(user_id: current_user.id)
   end
 
   def template_params

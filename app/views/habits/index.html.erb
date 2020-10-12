@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  <%= select_tag 'search_year', options_for_select(@year_array, :selected => Date.today), class: "search_year" %>
+  <%= select_tag 'search_year', options_for_select(@year_array, :selected => Date.today.strftime("%Y-%m-%d")), class: "search_year" %>
   <h1>習慣一覧</h1>
   <table class="table table-hover">
     <thead>
